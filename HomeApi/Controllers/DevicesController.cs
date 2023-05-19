@@ -97,5 +97,24 @@ namespace HomeApi.Controllers
 
             return StatusCode(200, $"Устройство обновлено! Имя - {device.Name}, Серийный номер - {device.SerialNumber},  Комната подключения - {device.Room.Name}");
         }
+
+        /// <summary>
+        /// Добавление нового устройства
+        /// </summary>
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult>Delete(
+            [FromRoute] Guid id)
+        {
+            var device = await _devices.GetDeviceById(id);
+            if (device == null)
+                return StatusCode(204, $"Ошибка: Устройство c Идентификатором {id} не существует.");
+
+            var nameDevice = device.Name;
+
+            await _devices.DeleteDevice(device);
+
+            return StatusCode(200, $"Устройство {nameDevice} успешно удалено. Идентификатор: {id}");
+        }
     }
 }
