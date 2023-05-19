@@ -99,7 +99,7 @@ namespace HomeApi.Controllers
         }
 
         /// <summary>
-        /// Добавление нового устройства
+        /// Удаление устройства
         /// </summary>
         [HttpDelete]
         [Route("{id}")]
